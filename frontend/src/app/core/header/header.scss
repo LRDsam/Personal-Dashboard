@@ -1,0 +1,15 @@
+.header-banner {
+  display: flex;
+  justify-content: space-between; /* Titel links, avatar rechts */
+  align-items: center;
+  padding: 4px;
+  background-color: var(--p-primary-color);;
+  color: var(--p-primary-contrast-color);
+  font-size: 1.2rem;
+  font-weight: bold;
+  
+  .header-title {
+    font-size: 2rem;
+    padding: 0 0 0 8px;
+  }
+}

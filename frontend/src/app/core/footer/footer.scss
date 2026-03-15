@@ -1,0 +1,14 @@
+.footer-banner {
+  display: flex;
+  justify-content: center; /* Titel links, avatar rechts */
+  align-items: center;
+  padding: 4px;
+  background-color: var(--p-primary-color);;
+  color: var(--p-primary-contrast-color);
+  font-size: 0.8rem;
+  font-weight: bold;
+  
+  .footer-title {
+    padding: 0 0 0 0px;
+  }
+}

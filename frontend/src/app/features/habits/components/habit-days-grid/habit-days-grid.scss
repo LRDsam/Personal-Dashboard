@@ -1,0 +1,137 @@
+.habit-card {
+  background: white;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #ddd;
+}
+
+.habit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.habit-info {
+  flex: 1;
+}
+
+.habit-name {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.habit-description {
+  margin: 5px 0 0 0;
+  font-size: 12px;
+  color: #999;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.3s;
+
+  &:hover {
+    color: #ff6b6b;
+  }
+}
+
+.habit-grid {
+  display: flex;
+  gap: clamp(2px, 0.5vw, 6px);
+  margin-bottom: 15px;
+}
+
+.day-names {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2px, 0.3vw, 4px);
+  padding-top: clamp(12px, 1.5vw, 18px);
+  flex-shrink: 0;
+}
+
+.day-name {
+  width: clamp(14px, 1.5vw, 28px);
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: clamp(8px, 1vw, 12px);
+  color: #666;
+}
+
+.weeks-container {
+  display: flex;
+  gap: clamp(2px, 0.3vw, 4px);
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+}
+
+.week {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: clamp(2px, 0.3vw, 4px);
+  flex: 1;
+  min-width: 14px;
+  max-width: 28px;
+  flex-shrink: 0;
+}
+
+
+.week-number {
+  font-size: clamp(2px, 0.8vw, 10px);
+  font-weight: bold;
+  color: #bbb;
+  height: clamp(12px, 1.5vw, 18px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.this-week-number .week-number {
+  color: #ff6b6b;
+}
+
+
+
+.day-box {
+  width: clamp(10px, 1.5vw, 20px);
+  aspect-ratio: 1;
+  border-radius: 0px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid #e0e0e0;
+  flex: 0 0 auto; 
+
+  &:hover:not(.empty) {
+    transform: scale(0.85);
+  }
+
+  &.completed {
+    border-color: transparent;
+  }
+
+  &.empty {
+    background-color: transparent !important;
+    border: none !important;
+    cursor: default !important;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+.habit-stats {
+  font-size: 12px;
+  color: #999;
+  text-align: right;
+}
