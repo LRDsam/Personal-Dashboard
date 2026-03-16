@@ -22,7 +22,7 @@ export class HabitCard implements OnInit {
       name: 'Morning Exercise',
       description: '30 minutes of jogging every morning to stay fit and healthy.',
       color: '#FF5733',
-      completedDates: ['2026-06-01', '2024-06-02', '2024-06-03'] // Voorbeeld van voltooide datums
+      completedDates: ['2026-06-01', '2026-06-02', '2026-06-03'] // Voorbeeld van voltooide datums
     };
   }
 }

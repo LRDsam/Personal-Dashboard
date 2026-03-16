@@ -15,7 +15,8 @@ export class HabitDaysGrid implements OnInit {
   constructor(private datePipe: DatePipe) {}
 
   weeks: any[][] = [];
-  dayNames = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
+  dayNames = ['  ','Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
+  dayIndices = [0, 1, 2, 3, 4, 5, 6];
   currentYear = new Date().getFullYear();
   currentWeekNumber: number = 0;
 
@@ -30,42 +31,44 @@ export class HabitDaysGrid implements OnInit {
     const startDate = new Date(year, 0, 1);
     const endDate = new Date(year, 11, 31);
 
-    // Maandag van de week waarin 1 januari valt
-    const firstDate = new Date(startDate);
-    const dayOfWeek = firstDate.getDay();
-    const monday = new Date(firstDate);
-    monday.setDate(firstDate.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));
+    const dow = startDate.getDay();
+    const monday = new Date(startDate);
+    monday.setDate(startDate.getDate() - (dow === 0 ? 6 : dow - 1));
 
     let currentWeek: any[] = [];
-    for (let date = new Date(monday); date <= endDate; date.setDate(date.getDate() + 1)) {
-      const dayOfWeekNum = date.getDay() === 0 ? 6 : date.getDay() - 1; // Ma=0, Zo=6
-    
-      if (date < startDate) {
-        currentWeek.push({
-          date: null,
-          dateStr: null,
-          completed: false,
-          dayOfWeek: dayOfWeekNum,
-          empty: true
-        }); // Vul lege dagen voor het begin van het jaar
+    const current = new Date(monday);
+
+    while (current.getTime() <= endDate.getTime()) {
+      const currentDow = current.getDay();
+      const dayOfWeekNum = currentDow === 0 ? 6 : currentDow - 1; // Ma=0, Zo=6
+      const isBeforeYear = current.getTime() < startDate.getTime();
+
+      if (isBeforeYear) {
+        currentWeek.push({ date: null, dateStr: null, completed: false, dayOfWeek: dayOfWeekNum, empty: true });
       } else {
-        const dateStr = [
-          date.getFullYear(),
-          String(date.getMonth() + 1).padStart(2, '0'),
-          String(date.getDate()).padStart(2, '0')
-        ].join('-');
-
-        const IsCompleted = Math.random() < 0.5; // Placeholder voor completed status, vervang met echte logica
-
+        const dateStr = `${current.getFullYear()}-${String(current.getMonth() + 1).padStart(2, '0')}-${String(current.getDate()).padStart(2, '0')}`;
         currentWeek.push({
-          date: new Date(date),
-          dateStr: dateStr,
-          completed: IsCompleted,
-          dayOfWeek: date.getDay(),
+          date: new Date(current),
+          dateStr,
+          completed: this.habit?.completedDates?.includes(dateStr) ?? false,
+          dayOfWeek: dayOfWeekNum,
           empty: false
         });
       }
+
+      if (dayOfWeekNum === 6) {
+        this.weeks.push([...currentWeek]);
+        currentWeek = [];
+      }
+
+      current.setDate(current.getDate() + 1); // increment ná de push
     }
+
+    if (currentWeek.length > 0) {
+      this.weeks.push([...currentWeek]);
+    }
+
+    console.log('Aantal weken gegenereerd:', this.weeks.length); // moet ~52-53 zijn
   }
 
   getCurrentWeekNumber() {

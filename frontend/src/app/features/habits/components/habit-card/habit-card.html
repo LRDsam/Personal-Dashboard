@@ -1,5 +1,5 @@
 <div class = "card">
     <h3>{{habit?.name}}</h3>
     <p>{{habit?.description}}</p>
-    <app-habit-days-grid></app-habit-days-grid>
+    <app-habit-days-grid [habit]="habit!"></app-habit-days-grid>
 </div>
