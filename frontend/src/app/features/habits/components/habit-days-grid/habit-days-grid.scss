@@ -1,22 +1,29 @@
-$cell-size: 20px;
+$cell-size: 18px;
 $cell-gap: 3px;
 
 .habit-grid {
   display: flex;
   flex-direction: row;
   gap: $cell-gap;
-  overflow-x: auto;
 }
 
 .habit-column {
+  &:first-child{
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background-color: white;
+  }
   display: flex;
   flex-direction: column;
+  flex:1;
   gap: $cell-gap;
 }
 
 .cell {
-  width: $cell-size;
-  height: $cell-size;
+  width: 100%;
+  min-width: $cell-size;
+  aspect-ratio: 1;
   box-sizing: border-box;
   border-radius: 3px;
   flex-shrink: 0;
@@ -26,13 +33,19 @@ $cell-gap: 3px;
   align-items: center;
   justify-content: center;
 
+  &.currentweek {
+    font-weight: bold;
+    color: red;
+  }
+
   &.day-name-cell {
-    border-radius: 3px;
-    cursor: pointer;
+    font-weight: bold;
+    color: #555;
   }
 
   &.day-cell{
     border: 1px solid black;
+    cursor: pointer;
 
     transition: transform 0.1s ease;
     &:hover:not(.empty) {

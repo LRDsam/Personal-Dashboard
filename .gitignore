@@ -45,3 +45,13 @@ frontend/dist/
 # System files
 .DS_Store
 Thumbs.db
+
+# .NET build output
+backend/bin/
+backend/obj/
+
+# Gevoelige configuratie
+backend/appsettings.Development.json
+
+# Secrets
+backend/*.user

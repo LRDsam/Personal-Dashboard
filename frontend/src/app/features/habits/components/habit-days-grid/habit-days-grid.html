@@ -4,8 +4,8 @@
     </div>
 
     @for(week of weeks; track week; let index = $index) {
-      <div class="habit-column">
-        <div class="cell">{{index}}</div>
+      <div class="habit-column" >
+        <div class="cell" [class.currentweek]="$index === currentWeekNumber + 1">{{index}}</div>
         @for( day of week; track day){
           <div class="cell day-cell" [class.empty]="day.empty" [class.completed]="day.completed"></div>
         }
