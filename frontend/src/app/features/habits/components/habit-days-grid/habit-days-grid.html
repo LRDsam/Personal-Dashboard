@@ -3,11 +3,15 @@
       <div class="cell day-name-cell" *ngFor="let day of dayNames">{{ day }}</div>
     </div>
 
-    @for(week of weeks; track week; let index = $index) {
+    @for(week of weeks; track index; let index = $index) {
       <div class="habit-column" >
-        <div class="cell" [class.currentweek]="$index === currentWeekNumber + 1">{{index}}</div>
-        @for( day of week; track day){
-          <div class="cell day-cell" [class.empty]="day.empty" [class.completed]="day.completed"></div>
+        <div class="cell" [class.currentweek]="$index === currentWeekNumber">{{index + 1}}</div>
+        @for( day of week; track (day.dateStr || $index)){
+          <div class="cell day-cell" 
+            [class.empty]="day.empty" 
+            [class.completed]="day.completed"
+            (click)="toggleDay(day)">
+          </div>
         }
       </div>
     }

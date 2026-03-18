@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, DatePipe} from '@angular/common';
 import { Habit } from '../../models/habit';
+import { HabitService } from '../../../../services/habit';
 
 @Component({
   selector: 'app-habit-days-grid',
@@ -12,7 +13,11 @@ import { Habit } from '../../models/habit';
 })
 export class HabitDaysGrid implements OnInit {
   @Input() habit!: Habit;
-  constructor(private datePipe: DatePipe) {}
+  constructor(private datePipe: DatePipe, 
+    private habitService: HabitService,
+    private cdr: ChangeDetectorRef
+  ) {}
+  
 
   weeks: any[][] = [];
   dayNames = ['  ','Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
@@ -83,15 +88,23 @@ export class HabitDaysGrid implements OnInit {
 
   toggleDay(day: any) {
     if (day.empty) return;
-    
+
     const index = this.habit.completedDates.indexOf(day.dateStr);
-    console.log(day.dateStr);
+  
     if (index > -1) {
-      this.habit.completedDates.splice(index, 1);
+      this.habitService.removeCompletion(this.habit.id, day.dateStr).subscribe(() => {
+        this.habit.completedDates.splice(index, 1);
+        this.generateWeeks();
+        this.cdr.detectChanges();
+      });
     } else {
-      this.habit.completedDates.push(day.dateStr);
+      this.habitService.addCompletion(this.habit.id, day.dateStr).subscribe(() => {
+        this.habit.completedDates.push(day.dateStr);
+        this.generateWeeks();
+        this.cdr.detectChanges();
+      });
     }
-    this.generateWeeks();
   }
 }
+
 
